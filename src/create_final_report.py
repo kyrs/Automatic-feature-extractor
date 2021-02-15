@@ -99,13 +99,18 @@ class createFinalReport:
 				featureInfoDetails["head_rotation_x_mean"] = dfOpenFace["pose_Rx"].mean()
 				featureInfoDetails["head_rotation_y_mean"] = dfOpenFace["pose_Ry"].mean()
 				featureInfoDetails["head_rotation_z_mean"] = dfOpenFace["pose_Rz"].mean()
+				featureInfoDetails["gaze_angle_x_mean"] = dfOpenFace["gaze_angle_x"].mean()
+				featureInfoDetails["gaze_angle_y_mean"] = dfOpenFace["gaze_angle_y"].mean()
 
 				if self.varFlag:
 					featureInfoDetails["head_rotation_x_var"] = dfOpenFace["pose_Rx"].var()
 					featureInfoDetails["head_rotation_y_var"] = dfOpenFace["pose_Ry"].var()
 					featureInfoDetails["head_rotation_z_var"] = dfOpenFace["pose_Rz"].var()
+					featureInfoDetails["gaze_angle_x_var"] = dfOpenFace["gaze_angle_x"].var()
+					featureInfoDetails["gaze_angle_y_var"] = dfOpenFace["gaze_angle_y"].var()
 
 
+					
 			if self.processOpenPoseFlag:
 				print(join(folder, "*_openpose/*_openpose_feature.csv"))
 				openposeFeatureFile = glob.glob(join(folder, "*_openpose/*.csv"))[0]
@@ -128,21 +133,21 @@ class createFinalReport:
 		columnListToSave = ["id"]
 
 		if self.processSpeechFlag:
-			columnListToSave += ["mean_pitch", "mean_loudness", "mean_energy"]
+			columnListToSave += ["total_time", "speaking_rate", "articulation_rate","spoken_time","mean_pitch", "mean_loudness", "mean_energy"]
 			if self.varFlag: 
 				columnListToSave += ["var_pitch", "var_loudness", "var_energy"]
 
 
 		if self.processOpenFaceFlag:
-			columnListToSave += ["head_rotation_x_mean", "head_rotation_y_mean", "head_rotation_z_mean"]
+			columnListToSave += ["head_rotation_x_mean", "head_rotation_y_mean", "head_rotation_z_mean", "gaze_angle_x_mean", "gaze_angle_y_mean"]
 			if self.varFlag: 
-				columnListToSave += ["head_rotation_x_var", "head_rotation_y_var", "head_rotation_z_var"]
+				columnListToSave += ["head_rotation_x_var", "head_rotation_y_var", "head_rotation_z_var", "gaze_angle_x_var", "gaze_angle_y_var"]
 
 
-		if self.processOpenFaceFlag:
+		if self.processOpenPoseFlag :
 			columnListToSave += ["left_hand_motion_angle_mean", "right_hand_motion_angle_mean"]
 			if self.varFlag: 
-				columnListToSave += ["left_hand_motion_angle_var", "right_hand_motion_angle_var"]			
+				columnListToSave += ["left_hand_motion_angle_var", "right_hand_motion_angle_var"]
 
 		# print(featureInfoDetails)
 		dfToSave =  pd.DataFrame(allFeatureList, columns = columnListToSave)
@@ -150,6 +155,6 @@ class createFinalReport:
 
 
 if __name__ == "__main__":
-	obj = createFinalReport(processedDir = "/mnt/hdd1/shubham/UNIL_ROUND_2_EXP/data/processedOutputDir", saveFile = "/mnt/hdd1/shubham/UNIL_ROUND_2_EXP/results/report_part1.csv",
+	obj = createFinalReport(processedDir = "/home/ubuntu/Automatic-feature-extractor/processed_video/set_test", saveFile = "/home/ubuntu/Automatic-feature-extractor/results/report_part1.csv",
 	 processSpeechFlag = True, processOpenFaceFlag = True, processOpenPoseFlag = True, varFlag = True)
 	obj.RUN()

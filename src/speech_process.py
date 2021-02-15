@@ -106,8 +106,8 @@ class SpeechProcessing:
 				pass
 
 if __name__ =="__main__":
-	obj = SpeechProcessing(inputDir = "/mnt/hdd1/shubham/UNIL_ROUND_2_EXP/data/processedOutputDir", openSmileFlag = True, praatFeatureFlag = True, 
-		praatBin = "/mnt/hdd1/shubham/UNIL_ROUND_2_EXP/soft/praat/praat", praatEec = "/mnt/hdd1/shubham/UNIL_ROUND_2_EXP/library/speechRateV3.praat", opensmileBin = "/mnt/hdd1/shubham/UNIL_ROUND_2_EXP/soft/opensmile-2.3.0/SMILExtract",
-		 openSmileOSMExec = "/mnt/hdd1/shubham/UNIL_ROUND_2_EXP/soft/opensmile-2.3.0/config/prosodyShs.conf", openSmileEneExc = "/mnt/hdd1/shubham/UNIL_ROUND_2_EXP/soft/opensmile-2.3.0/config/demo/demo1_energy.conf")
+	obj = SpeechProcessing(inputDir = "/home/ubuntu/Automatic-feature-extractor/processed_video/set_test", openSmileFlag = True, praatFeatureFlag = True, 
+		praatBin = "/home/ubuntu/soft/praat/praat/praat", praatEec = "/home/ubuntu/Automatic-feature-extractor/library/speechRateV3.praat", opensmileBin = "/home/ubuntu/soft/opensmile/opensmile-2.3.0/SMILExtract",
+		 openSmileOSMExec = "/home/ubuntu/soft/opensmile/opensmile-2.3.0/config/prosodyShs.conf", openSmileEneExc = "/home/ubuntu/soft/opensmile/opensmile-2.3.0/config/demo/demo1_energy.conf")
 
 	obj.RUN()

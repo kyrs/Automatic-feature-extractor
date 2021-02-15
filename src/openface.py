@@ -62,5 +62,5 @@ class OpenFaceProcessing:
 
 
 if __name__ == "__main__":
-	obj = OpenFaceProcessing(inputDir = "/mnt/hdd1/shubham/UNIL_ROUND_2_EXP/data/processedOutputDir",  openFaceBin = "/mnt/hdd1/shubham/openface2/OpenFace/build/bin/FeatureExtraction" )
+	obj = OpenFaceProcessing(inputDir = "/home/ubuntu/Automatic-feature-extractor/processed_video/set_test",  openFaceBin = "/home/ubuntu/soft/openface/OpenFace/build/bin/FeatureExtraction" )
 	obj.RUN()

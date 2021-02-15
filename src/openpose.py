@@ -174,5 +174,5 @@ class OpenPoseProcessing:
 				self.extractAngleBasedFet(inputJsonFolder = baseVideoFolderName,outputFileSave = outputCsvFileSave)
 
 if __name__ =="__main__":
-	obj = OpenPoseProcessing(inputDir = "/mnt/hdd1/shubham/UNIL_ROUND_2_EXP/data/processedOutputDir",  openPoseDir = "/mnt/hdd1/shubham/unil_swiss_access/openpose/openpose", runOpenPoseFlag = False, runCsvFeatFlag = True)
+	obj = OpenPoseProcessing(inputDir = "/home/ubuntu/Automatic-feature-extractor/processed_video/set_test",  openPoseDir = "/home/ubuntu/soft/openpose/openpose", runOpenPoseFlag = True, runCsvFeatFlag = True)
 	obj.RUN()
