@@ -27,7 +27,7 @@ class MainFeatureExt:
 		self.wavExtFlag = wavExtFlag
 		self.videoFormatFlag = videoFormatFlag
 		self.defVideoExt = videoFormat
-		self.copyFromExt = ["mkl", "vlc", "mts" ]
+		self.copyFromExt = ["mkl", "vlc", "mts", "mov", "mp4", "webm", "wmv" ]
 
 		self.trimDataJson = self.__parseTrimCsv(trimdetailCSV)
 
@@ -200,17 +200,17 @@ class MainFeatureExt:
 					continue
 
 				outFilePth = join(newFoldPath,file + "." + self.defVideoExt)
-				inpfilePth = join(newFoldPath,orginalName)
+				inpFilePth = join(newFoldPath,orginalName)
 
 				
-				print(f"input file format : {inpfilePth}")
+				print(f"input file format : {inpFilePth}")
 				print(f"output file format : {outFilePth}")
 				print("changing format")
 				if ext.lower() != self.defVideoExt:
-					out = self.changeVideoFormat(inpfilePth, outFilePth )
+					out = self.changeVideoFormat(inpFilePth, outFilePth )
 				else:
-					outFilePth = inpFilePath
-					print(f"file with defined ext : {inpFilePath}")
+					outFilePth = inpFilePth
+					print(f"file with defined ext : {inpFilePth}")
 
 
 		if self.trimFlag:

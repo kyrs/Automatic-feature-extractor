@@ -16,10 +16,10 @@ def parseInput():
 	parser.add_argument("--processed_dir", type = str, default = "")
 	parser.add_argument("--csvFile", type = str, default = "")
 
-	parser.add_argument("--FolderProcessFlag", type = bool, default = False)
-	parser.add_argument("--SpeechProcessFlag", type = bool, default = False)
-	parser.add_argument("--OpenPoseProcessFlag", type = bool, default = False)
-	parser.add_argument("--OpenFaceProcessFlag", type = bool, default = False)
+	parser.add_argument("--FolderProcessFlag", type = bool, default = True)
+	parser.add_argument("--SpeechProcessFlag", type = bool, default = True)
+	parser.add_argument("--OpenPoseProcessFlag", type = bool, default = True)
+	parser.add_argument("--OpenFaceProcessFlag", type = bool, default = True)
 
 	output = parser.parse_args()
 	assert(output.input_dir != output.processed_dir)
@@ -30,8 +30,8 @@ def parseInput():
 	
 	if output.FolderProcessFlag:
 		print("RUNNING FFOLDER FILE...")
-		FoldObj = MainFeatureExt(foldBfProcess = output.input_dir, foldAftProcess = output.processed_dir,
-		 trimdetailCSV = output.csvFile, copyFlag = True, trimFlag = True, wavExtFlag = True,  
+		FoldObj = MainFeatureExt(foldBfProcess = output.input_dir.strip(), foldAftProcess = output.processed_dir,
+		 trimdetailCSV = "/home/ubuntu/Automatic-feature-extractor/library/allVideosInfo.csv", copyFlag = True, trimFlag = True, wavExtFlag = True,  
 		 videoFormatFlag = True, videoFormat = "mp4")
 		FoldObj.RUN()
 
@@ -60,7 +60,8 @@ def parseInput():
 	if output.OpenPoseProcessFlag:
 		print("RUNNING OPENPOSE...")
 		poseObj = OpenPoseProcessing(inputDir = output.processed_dir,  openPoseDir = "/home/ubuntu/soft/openpose/openpose", runOpenPoseFlag = True, runCsvFeatFlag = True)
-
+		poseObj.RUN()
 
 if __name__ == "__main__":
 	parseInput()
+	#python main.py --input_dir /home/ubuntu/Automatic-feature-extractor/base_video/unil_dataset/session1/set1/  --processed_dir /home/ubuntu/Automatic-feature-extractor/processed_video/session1/set1 

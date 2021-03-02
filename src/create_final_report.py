@@ -155,6 +155,6 @@ class createFinalReport:
 
 
 if __name__ == "__main__":
-	obj = createFinalReport(processedDir = "/home/ubuntu/Automatic-feature-extractor/processed_video/set_test", saveFile = "/home/ubuntu/Automatic-feature-extractor/results/report_part1.csv",
+	obj = createFinalReport(processedDir = "/home/ubuntu/Automatic-feature-extractor/processed_video/session2/reportGen", saveFile = "/home/ubuntu/Automatic-feature-extractor/results/session2/Automatic_feature_extraction_session2.csv",
 	 processSpeechFlag = True, processOpenFaceFlag = True, processOpenPoseFlag = True, varFlag = True)
 	obj.RUN()

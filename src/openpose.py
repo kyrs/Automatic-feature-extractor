@@ -173,6 +173,60 @@ class OpenPoseProcessing:
 				print("csv Feat Flag : ON")
 				self.extractAngleBasedFet(inputJsonFolder = baseVideoFolderName,outputFileSave = outputCsvFileSave)
 
+	def checkImage(self,inputFolder, outputFolder):
+
+			jsonFileList = glob.glob(join(inputFolder, "*_keypoints.json"))
+			assert( len(jsonFileList) > 100 )
+			frameId =0
+			angleInfoList = []
+			for fileName in sorted(jsonFileList):
+				frameId += 1 
+				with open(fileName, "r") as fileNameReader:
+					outJson = json.load(fileNameReader)
+					valList = outJson['people'][0]['pose_keypoints_2d']
+					keypointList = [valList[i:i+3] for i in range(0,75,3)]
+					leftShoulderVal = keypointList[5]
+					leftElbowVal = keypointList[6]
+					leftHandVal = keypointList[7]
+
+					leftShoulder = leftShoulderVal[:2]
+					leftElbow = leftElbowVal[:2]
+					leftHand = 	leftHandVal[:2]
+
+					leftSideConf = [leftShoulderVal[2], leftElbowVal[2], leftHandVal[2]]
+					leftMinConf = min(leftSideConf)
+
+					rightShoulderVal = keypointList[2]
+					rightElbowVal = keypointList[3]
+					rightHandVal = keypointList[4]
+
+					rightShoulder = rightShoulderVal[:2]
+					rightElbow    = rightElbowVal[:2]
+					rightHand 	  =  rightHandVal[:2]
+
+					rightSideConf = [rightShoulderVal[2], rightElbowVal[2], rightHandVal[2]]
+					rightMinConf = min(rightSideConf)
+
+					matImg = 255 * np.ones((1000,2000,3), np.uint8)
+					matImg = cv2.circle(matImg, self.floatToInt(leftShoulder), radius=3, color=(0, 0, 255), thickness=-1)
+					matImg = cv2.circle(matImg, self.floatToInt(rightShoulder), radius=3, color=(0, 0, 255), thickness=-1)
+
+					matImg = cv2.circle(matImg, self.floatToInt(rightElbow), radius=3, color=(0, 255, 0), thickness=-1)
+					matImg = cv2.circle(matImg, self.floatToInt(rightElbow), radius=3, color=(0,255, 0), thickness=-1)
+
+					matImg = cv2.circle(matImg, self.floatToInt(rightHand), radius=3, color=(255,0 , 0), thickness=-1)
+					matImg = cv2.circle(matImg, self.floatToInt(leftElbow), radius=3, color=(0,255, 0), thickness=-1)
+					matImg = cv2.circle(matImg, self.floatToInt(leftHand), radius=3, color=(255,0 , 0), thickness=-1)
+
+					imageName = format(frameId, '05d')
+					outputfileName = join(outputFolder,imageName+".jpg")
+
+					print (f"frame id : {frameId} output file : {outputfileName}")
+					cv2.imwrite(outputfileName, matImg)
+
+
 if __name__ =="__main__":
-	obj = OpenPoseProcessing(inputDir = "/home/ubuntu/Automatic-feature-extractor/processed_video/set_test",  openPoseDir = "/home/ubuntu/soft/openpose/openpose", runOpenPoseFlag = True, runCsvFeatFlag = True)
-	obj.RUN()
+	obj = OpenPoseProcessing(inputDir = "/mnt/hdd1/shubham/UNIL_ROUND_2_EXP/data/processedOutputDir/test",  openPoseDir = "/mnt/hdd1/shubham/unil_swiss_access/openpose/openpose", runOpenPoseFlag = True, runCsvFeatFlag = True)
+	# obj.RUN()
+	obj.checkImage(inputFolder = "/home/ubuntu/Automatic-feature-extractor/processed_video/session2/hand_problem/PT110_task2/PT110_task2_trim_openpose", outputFolder = "/home/ubuntu/Automatic-feature-extractor/processed_video/session2/hand_problem/PT110_task2/PT110_task2_trim_openpose/checkPoseStick")
+	#ffmpeg -framerate 30 -pattern_type glob -i '*.jpg' -c:v libx264 -r 30 -pix_fmt yuv420p PT038_posestick.mp4
